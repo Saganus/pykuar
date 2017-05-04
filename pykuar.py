@@ -1,7 +1,9 @@
 import qrcode
 import qrcode.image.svg
+from qrcode.image.pure import PymagingImage
 
-factory = qrcode.image.svg.SvgPathImage
+white_bg_factory 		= qrcode.image.svg.SvgPathFillImage
+transparent_bg_factory 	= qrcode.image.svg.SvgPathImage
 
 qr = qrcode.QRCode(
     version=1,
@@ -12,6 +14,6 @@ qr = qrcode.QRCode(
 qr.add_data('Some data')
 qr.make(fit=True)
 
-img = qr.make_image(image_factory = factory)
-
-img.save('qr.svg')
+img = qr.make_image(image_factory = PymagingImage)
+img_file = open('qr.png', 'wb')
+img.save(img_file)
