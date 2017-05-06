@@ -17,7 +17,7 @@ def parse_args():
 	parser.add_argument('-t', '--type', default='png', help='Specifies the type of the output file. Valid options are \'png\' or \'svg\'. Default is \'png\'')
 	parser.add_argument('-i', '--input-file', help='Specifies a text file to get the string from')
 	parser.add_argument('-c', '--error-correction', nargs=1, default='H', choices=['L', 'H'], help='Specifies the error correction level. Valid options are \'L\' or \'H\'. Default is \'H\'')
-	parser.add_argument('-v', '--qr-code-version', nargs=1, default='40', choices=['20', '40'], help='Specifies the QR code version to use. Valid options are  \'20\', \'40\'. Default is \'40\'')
+	parser.add_argument('-v', '--qr-code-version', nargs=1, default='20', choices=['20', '40'], help='Specifies the QR code version to use. Valid options are  \'20\', \'40\'. Default is \'40\'')
 	
 
 	return parser.parse_args();
@@ -61,13 +61,13 @@ def main():
 		else:
 			end = offset + max_bytes
 		 
-		print('Generating code {}: From char {} to {}'.format(code, offset, end))
+		print('Generating code {}: From byte {} to {}'.format(code, offset, end))
 		#print(plaintext_bytes[offset:end].decode())
 		data = plaintext_bytes[offset:end]
 		qr_code = pyqrcode.create(data, error=args.error_correction[0], version=int(args.qr_code_version[0]), mode='binary')
 
 	
-		if num_codes > 1 and code < 1:
+		if code < 1:
 			timestamp = int(time.time())
 			id = hashids.encode(timestamp)
 
