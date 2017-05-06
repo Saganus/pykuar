@@ -62,7 +62,6 @@ def main():
 			end = offset + max_bytes
 		 
 		print('Generating code {}: From byte {} to {}'.format(code, offset, end))
-		#print(plaintext_bytes[offset:end].decode())
 		data = plaintext_bytes[offset:end]
 		qr_code = pyqrcode.create(data, error=args.error_correction[0], version=int(args.qr_code_version[0]), mode='binary')
 
@@ -80,9 +79,11 @@ def main():
 			output_file += '-' + str(code)
 
 		if args.type == 'svg':
+			output_file += '.svg'
 			qr_code.svg(output_file, scale=4, module_color='#000000', background='#ffffff')
 			
 		elif args.type == 'png':
+			output_file += '.png'
 			qr_code.png(output_file, scale=4, module_color=(0, 0, 0, 128), background=(0xff, 0xff, 0xff))
 
 		print('Generated: ', output_file)
